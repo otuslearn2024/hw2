@@ -17,7 +17,6 @@ public:
 
 protected:
     void mouseMoveEvent(QMouseEvent *ev) override;
-    void mousePressEvent(QMouseEvent *ev) override;
 
 private:
     QStringList *photos;

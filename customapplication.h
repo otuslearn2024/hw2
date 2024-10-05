@@ -1,4 +1,4 @@
-#ifndef CUSTOMAPPLICATION_H
+   #ifndef CUSTOMAPPLICATION_H
 #define CUSTOMAPPLICATION_H
 
 #include <QObject>
@@ -19,7 +19,7 @@ protected:
     bool notify(QObject *receiver, QEvent *event) override {
         if (event->type() == QEvent::MouseMove)
         {
-          qDebug() << "CustomApplication: Notify";
+          //qDebug() << "CustomApplication: Notify";
           if(isMouseMoveAllowed) {
             return QApplication::notify(receiver, event);
           }

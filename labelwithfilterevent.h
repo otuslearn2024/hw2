@@ -20,7 +20,7 @@ protected:
         QLabel::mouseMoveEvent(ev);
     }
     void mouseMoveEvent(QMouseEvent *ev) override {
-        qDebug() << ev->pos();
+        //qDebug() << ev->pos();
         c++;
         this->setText(QString::number(c));
         QLabel::mouseMoveEvent(ev);

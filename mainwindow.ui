@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1200</width>
-    <height>600</height>
+    <width>700</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,15 +24,19 @@
        <attribute name="title">
         <string>ev override</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="PhotoGallery" name="label">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-       </layout>
+       <widget class="PhotoGallery" name="label">
+        <property name="geometry">
+         <rect>
+          <x>40</x>
+          <y>0</y>
+          <width>600</width>
+          <height>600</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -66,35 +70,22 @@
        <attribute name="title">
         <string>custom event and redirect event</string>
        </attribute>
-       <widget class="QLabel" name="label_source">
-        <property name="geometry">
-         <rect>
-          <x>9</x>
-          <y>9</y>
-          <width>171</width>
-          <height>81</height>
-         </rect>
-        </property>
-        <property name="autoFillBackground">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>Source</string>
-        </property>
-       </widget>
-       <widget class="CustomDestinationLabel" name="label_destination">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>140</y>
-          <width>181</width>
-          <height>71</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Destination</string>
-        </property>
-       </widget>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label_source">
+          <property name="text">
+           <string>Source</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="CustomDestinationLabel" name="label_destination">
+          <property name="text">
+           <string>Destination</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -110,7 +101,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1200</width>
+     <width>700</width>
      <height>21</height>
     </rect>
    </property>
@@ -120,6 +111,7 @@
     </property>
     <addaction name="actionAppFilter"/>
     <addaction name="actionCustomAppFilter"/>
+    <addaction name="actionLabelFilter"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -138,6 +130,14 @@
    </property>
    <property name="text">
     <string>CustomAppFilter</string>
+   </property>
+  </action>
+  <action name="actionLabelFilter">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>LabelFilter</string>
    </property>
   </action>
  </widget>

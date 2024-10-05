@@ -29,7 +29,8 @@ void WarmSwitcher::paintEvent(QPaintEvent *event)
 
     painter->setPen(Qt::PenStyle::NoPen);
     painter->setBrush(QBrush(QColor(200,200,200)));
-    painter->drawRect(middle_w - 50, middle_h - 20, 100, 40);
+    //painter->drawRect(middle_w - 50, middle_h - 20, 100, 40);
+    painter->drawRoundedRect(middle_w - 50, middle_h - 20, 100, 40, 5, 5);
 
     painter->setBrush(QBrush(QColor(0,0,0)));
     if(is_on) {

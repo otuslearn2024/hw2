@@ -6,9 +6,10 @@
 
 PhotoGallery::PhotoGallery(QWidget *parent) : QLabel(parent)
 {
-    qDebug() << "PhotoGallery constructor called";
+    //qDebug() << "PhotoGallery constructor called";
     setMouseTracking(true);
-    setScaledContents(true);
+    setScaledContents(false);
+
     this->pixMaps = new QList<QPixmap>();
 }
 
@@ -20,23 +21,22 @@ PhotoGallery::~PhotoGallery()
 
 void PhotoGallery::setPhotos(QStringList *photos)
 {
-    qDebug() << "setPhotos called";
+    //qDebug() << "PhotoFallery: setPhotos called";
 
     this->photos = photos;
 
-    for(int i = 0; i<photos->count(); i++) {
+    for(int i = 0; i < photos->count(); i++) {
         QPixmap * pm = new QPixmap(photos->at(i));
-        this->pixMaps->append(pm->scaled(500,500,Qt::KeepAspectRatio));
+        this->pixMaps->append(*pm);
     }
 
     photoWidth = pixMaps->at(0).width();
+    countFotos = photos->count();
+    sectorSize = photoWidth / (countFotos);
 
-    countFotos = sizeof(photos->count());
-    sectorSize = photoWidth / (countFotos - 1);
-
-    qDebug() << "photoWidth: " << photoWidth;
-    qDebug() << "countFotos: " << countFotos;
-    qDebug() << "sectorSize: " << sectorSize;
+    //qDebug() << "PhotoFallery: photoWidth: " << photoWidth;
+    //qDebug() << "PhotoFallery: countFotos: " << countFotos;
+    //qDebug() << "PhotoFallery: sectorSize: " << sectorSize;
 
     this->setPixmap(pixMaps->at(0));
 }
@@ -44,20 +44,16 @@ void PhotoGallery::setPhotos(QStringList *photos)
 void PhotoGallery::mouseMoveEvent(QMouseEvent *ev)
 {
     int tmpCurrentSector = ev->x() / sectorSize;
+    //qDebug() << currentSector << " " << tmpCurrentSector << " " << ev->x();
 
     if (currentSector != tmpCurrentSector)
     {
-      qDebug() << "current sector: " << currentSector << " tmpCurrentSector = " << tmpCurrentSector;
-      qDebug() << "switch photo, pos = " << ev->pos();
-      this->setPixmap(pixMaps->at(currentSector));
-      currentSector = tmpCurrentSector;
+        currentSector = tmpCurrentSector;
+        this->setPixmap(pixMaps->at(currentSector));
+
+        //qDebug() << "PhotoFallery: current sector: " << currentSector << " tmpCurrentSector = " << tmpCurrentSector;
+        //qDebug() << "PhotoFallery: switch photo, pos = " << ev->pos();
+
     }
-
-    QLabel::mouseMoveEvent(ev);
-}
-
-void PhotoGallery::mousePressEvent(QMouseEvent *ev)
-{
-    //qDebug() << "mousePressEvent";
     QLabel::mouseMoveEvent(ev);
 }

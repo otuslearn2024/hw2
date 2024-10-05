@@ -12,6 +12,7 @@
 QStringList *photos = new QStringList();
 bool isAppFilterActive = false;
 EventFilterApp *filterApp;
+EventFilter* filter;
 CustomEventFilter *customEventFilter;
 QLabel *controlLabel;
 
@@ -19,24 +20,30 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-
-
-    *photos << ":/images/DSC_1033.JPG";
-    *photos << ":/images/DSC_1035.JPG";
-    *photos << ":/images/DSC_1047.JPG";
-    *photos << ":/images/DSC_1049.JPG";
+    *photos << ":/images/1.jpg";
+    *photos << ":/images/2.jpg";
+    *photos << ":/images/3.jpg";
+    *photos << ":/images/4.jpg";
 
     ui->setupUi(this);
-
-
 
     ui->label->setPhotos(photos);
     ui->label_2->setPhotos(photos);
 
-    EventFilter* filter = new EventFilter();
-    ui->label_3->installEventFilter(filter);
-
+    filter = new EventFilter();
     filterApp = new EventFilterApp();
+
+    //включить-выключить фильтр на лейбле
+    connect(ui->actionLabelFilter, &QAction::triggered, [&]() {
+        if(ui->actionLabelFilter->isChecked()) {
+            qDebug() << "checked";
+            ui->label_3->installEventFilter(filter);
+        }
+        else {
+            qDebug() << "unchecked";
+            ui->label_3->removeEventFilter(filter);
+        }
+    });
 
     //включить-выключить фильтр на уровне объекта
     connect(ui->actionAppFilter, &QAction::triggered, [&]() {
@@ -60,14 +67,24 @@ MainWindow::MainWindow(QWidget *parent)
         }
     });
 
-    //фильтр для редиректра сообщений
+    //фильтр для редиректа сообщений
     //фильтр вешаем на label_source и события будем бросать на label_destination
-    ui->label_destination->setText("destination label");
-    customEventFilter = new CustomEventFilter();
-    //customEventFilter->setDestination(ui->label_destination);
-    ui->label_source->installEventFilter(customEventFilter);
-    //connect(ui->la
+    ui->label_source->setStyleSheet("background-color: red; border-radius: 10px; border-color: beige; font: bold 20px;");
+    ui->label_source->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+    ui->label_source->setText("SOURCE");
 
+    ui->label_destination->setStyleSheet("background-color: green; border-radius: 10px; border-color: beige; font: bold 20px;");
+    ui->label_destination->setAlignment(Qt::AlignVCenter | Qt::AlignCenter);
+    ui->label_destination->setText("DESTINATION");
+
+    customEventFilter = new CustomEventFilter();
+    customEventFilter->setDestination(ui->label_destination);
+    ui->label_source->installEventFilter(customEventFilter);
+
+    connect(ui->label_destination, &CustomDestinationLabel::customEventAccepted, [&]() {
+       ui->label_source->setStyleSheet("background-color: blue");
+    });
+    //последний там со своим виджетом
     //добавить виджет на таб
     QHBoxLayout* layout = new QHBoxLayout();
     WarmSwitcher *ws = new WarmSwitcher(this);

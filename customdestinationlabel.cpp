@@ -17,11 +17,14 @@ bool CustomDestinationLabel::event(QEvent *ev)
         qDebug() << "custom event accepted";
         QEvent *myEvent = static_cast<QEvent *>(ev);
         CustomEvent *cMyEvent = static_cast<CustomEvent *>(myEvent);
+        setText("Cusom Event Accepted");
         cMyEvent->info();
         emit customEventAccepted();
     }
     if(ev->type() == QEvent::MouseButtonPress) {
          qDebug() << "CustomDestinationLabel MouseButtonPress event";
      }
-    return true;
+
+    return QLabel::event(ev);
 }
+
